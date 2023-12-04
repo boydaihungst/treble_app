@@ -12,7 +12,7 @@ object NubiaSettings : Settings {
     val logoBreath = "nubia_redmagic_logo_breath"
     val redmagicLed = "nubia_redmagic_led"
     val boostCpu = "nubia_boost_cpu"
-    val boostGpu = "nubia_boost_gpu"
+    val boostGpu = "nubia_boost_gpu_mode"
     val boostCache = "nubia_boost_cache"
     val boostUfs = "nubia_boost_ufs"
     val shoulderBtn = "nubia_shoulder_btn"

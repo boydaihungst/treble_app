@@ -15,6 +15,7 @@
 
 	<array name="pref_nubia_redmagic_led">
 		<item>Off</item>
+		<item>On - no effect</item>
 		<item>Scrolling effect 0</item>
 		<item>Scrolling effect 1</item>
 		<item>Scrolling effect 2</item>
@@ -45,6 +46,7 @@
 	</array>
 	<array name="pref_nubia_redmagic_led_values">
 		<item>"0"</item>
+		<item>"1"</item>
 		<item>"0xa0"</item>
 		<item>"0xa1"</item>
 		<item>"0xa2"</item>
@@ -71,5 +73,16 @@
 		<item>"0x86"</item>
 		<item>"0x87"</item>
 		<item>"0x88"</item>
+	</array>
+
+	<array name="pref_nubia_redmagic_gpu_boost">
+		<item>Off</item>
+		<item>Medium</item>
+		<item>Maximum (diablo mode)</item>
+	</array>
+	<array name="pref_nubia_redmagic_gpu_boost_values">
+		<item>"0"</item>
+		<item>"1"</item>
+		<item>"2"</item>
 	</array>
 </resources>

@@ -53,7 +53,11 @@ object Nubia : EntryStartup {
             NubiaSettings.logoBreath -> {
                 val b = sp.getBoolean(key, false)
                 if(b) {
-                    writeToFileNofail("/sys/class/leds/blue/breath_feature", "3 1000 0 700 0 255 3")
+                    if (NubiaSettings.is6Series()) {
+                        writeToFileNofail("/sys/class/leds/red/breath_feature", "2")
+                    } else {
+                        writeToFileNofail("/sys/class/leds/blue/breath_feature", "3 1000 0 700 0 255 3")
+                    }
                 } else {
                     writeToFileNofail("/sys/class/leds/blue/breath_feature", "0")
                     writeToFileNofail("/sys/class/leds/red/breath_feature", "0")
@@ -72,10 +76,10 @@ object Nubia : EntryStartup {
                 SystemProperties.set("nubia.perf.cpu.boost", if(b) "1" else "0")
             }
             NubiaSettings.boostGpu -> {
-                val b = sp.getBoolean(key, false)
-                SystemProperties.set("persist.sys.gpu.boost", if(b) "1" else "0")
-                // 0 - normal, 1 - medium, 2 - maximum
-                SystemProperties.set("nubia.perf.gpu.boost", if(b) "2" else "0")
+                val b = sp.getString(key, "0").toString()
+                SystemProperties.set("persist.sys.gpu.boost", if(b.toInt() >= 1) "1" else "0")
+                // 0 - normal, 1 - medium, 2 - maximum/diablo mode
+                SystemProperties.set("nubia.perf.gpu.boost", b)
             }
 
             NubiaSettings.boostCache -> {

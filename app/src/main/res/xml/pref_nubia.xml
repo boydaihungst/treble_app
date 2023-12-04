@@ -82,11 +82,11 @@
             android:defaultValue="false"
             android:key="nubia_boost_cache"
             android:title="Boost caches" />
-        <CheckBoxPreference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:defaultValue="false"
-            android:key="nubia_boost_gpu"
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_nubia_redmagic_gpu_boost"
+            android:entryValues="@array/pref_nubia_redmagic_gpu_boost_values"
+            android:key="nubia_boost_gpu_mode"
             android:title="Boost GPU" />
         <CheckBoxPreference
             android:layout_width="wrap_content"
