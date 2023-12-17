@@ -13,10 +13,12 @@ import android.os.Looper
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.preference.PreferenceManager
+import java.io.File
 
 
 class NubiaAutoFanControlService : Service() {
 
+    private val usbTypePath: String = "/sys/class/power_supply/usb/type"
     private var powerConnectionChangedReceiver: BroadcastReceiver =
         object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -29,7 +31,7 @@ class NubiaAutoFanControlService : Service() {
                             if (canStartFan()){
                                 startFan()
                             }
-                        }, 1000)
+                        }, 1500)
                     Intent.ACTION_POWER_DISCONNECTED ->
                         stopFan()
                 }
@@ -123,6 +125,10 @@ class NubiaAutoFanControlService : Service() {
      * True when connected to charger && battery < 100%
      */
     private fun canStartFan(): Boolean {
+        // Only start fan in fast charge mode
+        if (!isFastCharging()) {
+            return false
+        }
         val batteryChangedIntent: Intent? = registerReceiver(null,
                 IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         );
@@ -144,5 +150,11 @@ class NubiaAutoFanControlService : Service() {
             }
         }
         return true
+    }
+
+    private fun isFastCharging(): Boolean {
+        val usbType: String = File(usbTypePath).readText(Charsets.UTF_8)
+        val fastChargeUsbTypes = arrayOf("PD", "PD_DRP", "PD_PPS")
+        return fastChargeUsbTypes.contains(usbType)
     }
 }
