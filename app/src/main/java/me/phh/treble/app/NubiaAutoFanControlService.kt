@@ -102,7 +102,11 @@ class NubiaAutoFanControlService : Service() {
         }
         val batteryChangedIntent = IntentFilter()
         batteryChangedIntent.addAction(Intent.ACTION_BATTERY_CHANGED)
-        registerReceiver(batteryChangedReceiver, batteryChangedIntent)
+
+        try {
+            registerReceiver(batteryChangedReceiver, batteryChangedIntent)
+        } catch (_: Exception) {
+        }
     }
     private fun stopFan() {
         val gameMode: Boolean = sp.getBoolean(NubiaSettings.tsGameMode, false)
@@ -154,7 +158,7 @@ class NubiaAutoFanControlService : Service() {
 
     private fun isFastCharging(): Boolean {
         val usbType: String = File(usbTypePath).readText(Charsets.UTF_8)
-        val fastChargeUsbTypes = arrayOf("PD", "PD_DRP", "PD_PPS")
-        return fastChargeUsbTypes.contains(usbType)
+        val fastChargeUsbTypes = arrayOf("PD", "DCP", "ACA")
+        return fastChargeUsbTypes.contains("USB_$usbType")
     }
 }
