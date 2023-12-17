@@ -13,6 +13,7 @@ import android.os.Looper
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.preference.PreferenceManager
+import android.util.Log
 import java.io.File
 
 
@@ -157,8 +158,9 @@ class NubiaAutoFanControlService : Service() {
     }
 
     private fun isFastCharging(): Boolean {
-        val usbType: String = File(usbTypePath).readText(Charsets.UTF_8)
-        val fastChargeUsbTypes = arrayOf("PD", "DCP", "ACA")
-        return fastChargeUsbTypes.contains("USB_$usbType")
+        val usbType: String = File(usbTypePath).useLines { it.toList() }.joinToString ("")
+        val fastChargeUsbTypes = arrayOf("USB_PD", "USB_DCP", "USB_ACA")
+        Log.d("PHH", "isFastCharging: $usbType, " + fastChargeUsbTypes.contains(usbType))
+        return fastChargeUsbTypes.contains(usbType)
     }
 }
