@@ -47,6 +47,7 @@ class EntryService: Service() {
             tryC { Huawei.startup(this) }
             tryC { Misc.startup(this) }
             tryC { Samsung.startup(this) }
+            tryC { Transsion.startup(this) }
             tryC { Hostapd.startup(this) }
             tryC { Xiaomi.startup(this) }
             tryC { Asus.startup(this) }
@@ -59,6 +60,7 @@ class EntryService: Service() {
 
             tryC { Desktop.startup(this) }
             tryC { Lid.startup(this) }
+            tryC { AudioEffects.startup(this) }
 
             tryC { PresetDownloader.startup(this) }
             tryC {
